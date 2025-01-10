@@ -1,3 +1,11 @@
+document.addEventListener('DOMContentLoaded', () => {
+    // Add Poppins font
+    const link = document.createElement('link');
+    link.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap';
+    link.rel = 'stylesheet';
+    document.head.appendChild(link);
+});
+
 const X_CLASS = 'x';
 const CIRCLE_CLASS = 'circle';
 const WINNING_COMBINATIONS = [
@@ -11,22 +19,22 @@ const WINNING_COMBINATIONS = [
     [2, 4, 6]
 ];
 
-const cellElements = document.querySelectorAll('.cell'); // Ensure this selector matches your HTML
-const board = document.querySelector('.board'); // Ensure this selector matches your HTML
+const cellElements = document.querySelectorAll('[data-cell]');
+const board = document.getElementById('board');
 const winningMessageElement = document.getElementById('winningMessage');
 const winningMessageTextElement = document.querySelector('[data-winning-message-text]');
 const restartButton = document.getElementById('restartButton');
-const newRestartButton = document.createElement('button');
-newRestartButton.className = 'reset-button';
-newRestartButton.textContent = 'Restart Game';
-newRestartButton.addEventListener('click', startGame);
-const gameContainer = document.querySelector('.game');
-gameContainer.appendChild(newRestartButton);
+const resetButton = document.getElementById('resetButton');
 let circleTurn;
+let xScore = 0;
+let oScore = 0;
+const xScoreSpan = document.getElementById('x-score');
+const oScoreSpan = document.getElementById('o-score');
 
 startGame();
 
 restartButton.addEventListener('click', startGame);
+resetButton.addEventListener('click', startGame);
 
 function startGame() {
     circleTurn = false;
@@ -60,6 +68,13 @@ function endGame(draw) {
         winningMessageTextElement.innerText = 'Draw!';
     } else {
         winningMessageTextElement.innerText = `${circleTurn ? "O's" : "X's"} Wins!`;
+        if (circleTurn) {
+            oScore++;
+            oScoreSpan.textContent = oScore;
+        } else {
+            xScore++;
+            xScoreSpan.textContent = xScore;
+        }
     }
     winningMessageElement.classList.add('show');
 }

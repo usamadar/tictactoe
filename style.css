@@ -1,74 +1,225 @@
 body {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background-color: #f0f0f0;
-    margin: 0;
-    font-family: Arial, sans-serif;
 }
 
-.game {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 90%;
 }
 
 .board {
     display: grid;
-    grid-template-columns: repeat(3, 100px);
-    grid-template-rows: repeat(3, 100px);
-    gap: 5px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 20px 0;
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto;
 }
 
 .cell {
-    width: 100px;
-    height: 100px;
-    background-color:white;
+    background: rgba(255, 255, 255, 0.05);
+    border: none;
+    border-radius: 12px;
+    aspect-ratio: 1;
+    font-size: 2.5rem;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2em;
-    cursor: pointer;
+    width: 100%;
+    min-height: 100px;
+}
+
+.cell:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
 }
 
 .cell.x {
-    color: red;
+    color: #00ff88;
 }
 
 .cell.circle {
-    color: blue;
+    color: #ff4d6d;
+}
+
+#status {
+    font-size: 1.5rem;
+    margin: 1rem 0;
+    text-align: center;
+    min-height: 2rem;
+}
+
+#resetButton {
+    background: #4361ee;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: block;
+    margin: 1rem auto;
+}
+
+#resetButton:hover {
+    background: #3250d9;
+    transform: translateY(-2px);
+}
+
+.winning-cell {
+    animation: winner 1s ease infinite;
+}
+
+@keyframes winner {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+    .container {
+        padding: 1rem;
+        width: 95%;
+    }
+    
+    .cell {
+        font-size: 2rem;
+        min-height: 80px;
+    }
+
+    .score-board {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .score {
+        min-width: 60px;
+        padding: 0.3rem 0.8rem;
+    }
+
+    #resetButton, #restartButton {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+
+    .winning-message {
+        padding: 1.5rem;
+        width: 80%;
+    }
+}
+
+/* Add styles for even smaller screens */
+@media (max-width: 320px) {
+    .container {
+        padding: 0.8rem;
+    }
+    
+    .cell {
+        font-size: 1.8rem;
+        min-height: 70px;
+    }
+
+    .score-board {
+        font-size: 1rem;
+    }
 }
 
 .winning-message {
     display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
+    position: fixed;
     top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.8);
-    color: #fff;
-    padding: 20px;
-    border-radius: 10px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.9);
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    z-index: 100;
 }
 
 .winning-message.show {
-    display: flex;
+    display: block;
 }
 
-button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    font-size: 1em;
+#restartButton {
+    background: #4361ee;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1rem;
     cursor: pointer;
+    transition: all 0.3s ease;
+    display: block;
+    margin: 1rem auto;
 }
 
 .reset-button {
-    margin: 10px;
-    padding: 10px 20px;
-    background-color: #aaa;
+    background: #4361ee;
+    color: white;
     border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1rem;
     cursor: pointer;
+    transition: all 0.3s ease;
+    display: block;
+    margin: 1rem auto;
+}
+
+.score-board {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.score {
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    min-width: 80px;
+    text-align: center;
+}
+
+.x-color {
+    color: #00ff88;
+}
+
+.o-color {
+    color: #ff4d6d;
+}
+
+html {
+    touch-action: manipulation;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    overscroll-behavior: none;
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
 }
